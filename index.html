@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+
+<!--
+  Página principal do hub /calculadoras/ — protótipo da oportunidade descrita
+  na análise (ver README.md). Em produção esta página viveria em
+  infinitepay.io/calculadoras/salario-liquido; canonical e schema abaixo
+  refletem essa URL de destino, não a URL de preview do repositório/GitHub
+  Pages. Ver README.md > "Como este protótipo se conecta à análise".
+-->
+
+<title>Calculadora de Salário Líquido Grátis e na Hora | InfinitePay</title>
+<meta name="description" content="Calcule seu salário líquido grátis: informe o bruto e veja na hora os descontos de INSS, IRRF e o valor que cai na conta. Ferramenta gratuita da InfinitePay.">
+<link rel="canonical" href="https://infinitepay.io/calculadoras/salario-liquido">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Calculadora de Salário Líquido Grátis e na Hora | InfinitePay">
+<meta property="og:description" content="Informe o salário bruto e veja na hora os descontos de INSS, IRRF e o valor líquido. Grátis, sem cadastro.">
+<meta property="og:url" content="https://infinitepay.io/calculadoras/salario-liquido">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="InfinitePay">
+
+<meta name="twitter:card" content="summary">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+
+<!-- ============================================================
+     Dados estruturados — ver seção 5.1 da análise (WebApplication,
+     FAQPage, HowTo, BreadcrumbList). Terreno em aberto: nenhum
+     concorrente do cluster ocupa serp_features hoje.
+     ============================================================ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Calculadora de Salário Líquido",
+  "url": "https://infinitepay.io/calculadoras/salario-liquido",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Web",
+  "description": "Ferramenta gratuita para calcular o salário líquido a partir do salário bruto, descontando INSS e IRRF.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "BRL"
+  },
+  "provider": {
+    "@type": "Organization",
+    "name": "InfinitePay",
+    "url": "https://infinitepay.io"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "O que é salário líquido?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Salário líquido é o valor que efetivamente cai na conta do trabalhador depois de descontados INSS, Imposto de Renda (IRRF) e outros descontos, como vale-transporte ou pensão alimentícia. É diferente do salário bruto, que é o valor combinado em contrato antes de qualquer desconto."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qual a diferença entre salário bruto e salário líquido?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O salário bruto é o valor total combinado antes dos descontos obrigatórios. O salário líquido é o que resta depois de descontar INSS e IRRF (e outros descontos específicos do contrato). A diferença entre os dois pode variar bastante dependendo da faixa salarial e do número de dependentes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como o INSS é calculado sobre o salário?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O INSS é calculado de forma progressiva: cada faixa do salário é tributada com uma alíquota diferente, que aumenta conforme o valor sobe, até um teto de contribuição. Não é uma alíquota única aplicada sobre o valor total."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ter dependentes reduz o Imposto de Renda?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. Cada dependente declarado reduz a base de cálculo do IRRF em um valor fixo por mês, o que pode diminuir a alíquota efetiva aplicada ou até isentar o trabalhador do imposto, dependendo da faixa salarial."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Essa calculadora substitui o cálculo feito pela contabilidade da empresa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Não. Esta ferramenta usa uma tabela simplificada para dar uma estimativa rápida do salário líquido. Para a folha de pagamento oficial, benefícios adicionais ou situações específicas de cada contrato, o cálculo definitivo deve ser feito pela contabilidade responsável pela empresa."
+      }
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Como usar a calculadora de salário líquido",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Informe o salário bruto",
+      "text": "Digite o valor combinado em carteira, antes de qualquer desconto."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Informe o número de dependentes",
+      "text": "Cada dependente declarado no Imposto de Renda reduz a base de cálculo do IRRF."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Adicione outros descontos (opcional)",
+      "text": "Some vale-transporte, pensão alimentícia ou outro desconto fixo do seu contrato, se houver."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Veja o resultado detalhado",
+      "text": "A calculadora mostra o desconto de INSS, o desconto de IRRF e o valor líquido final, linha por linha."
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "InfinitePay", "item": "https://infinitepay.io" },
+    { "@type": "ListItem", "position": 2, "name": "Calculadoras", "item": "https://infinitepay.io/calculadoras" },
+    { "@type": "ListItem", "position": 3, "name": "Salário Líquido", "item": "https://infinitepay.io/calculadoras/salario-liquido" }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="https://infinitepay.io" aria-label="InfinitePay">
+      <img src="assets/img/logo-infinitepay.svg" alt="InfinitePay" class="brand-logo" width="120" height="26">
+      <span class="brand-sub">/calculadoras</span>
+    </a>
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="https://infinitepay.io">InfinitePay</a> / <a href="#related">Calculadoras</a> / Salário Líquido
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section class="hero">
+      <p class="eyebrow">Calculadora gratuita</p>
+      <h1>Calculadora de Salário Líquido</h1>
+      <p class="hero-sub">
+        Informe o salário bruto e veja na hora, linha por linha, quanto vai de INSS,
+        quanto vai de Imposto de Renda e quanto sobra de líquido — sem cadastro, sem planilha.
+      </p>
+    </section>
+
+    <!-- ============ A CALCULADORA (elemento de assinatura: holerite) ============ -->
+    <section class="payslip" aria-labelledby="calc-heading">
+      <div class="payslip-head">
+        <h2 id="calc-heading">Simulação de contracheque</h2>
+        <span class="ref">ref. cálculo simplificado</span>
+      </div>
+
+      <div class="payslip-body">
+        <form id="calc-form" novalidate>
+          <div class="field-grid">
+            <div class="field span-2">
+              <label for="salario-bruto">Salário bruto mensal</label>
+              <div class="input-affix">
+                <span>R$</span>
+                <input type="text" inputmode="decimal" id="salario-bruto" name="salario-bruto" placeholder="3.500,00" required>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="dependentes">Dependentes (IR)</label>
+              <select class="plain" id="dependentes" name="dependentes">
+                <option value="0" selected>0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5 ou mais</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="outros-descontos">Outros descontos <span class="hint">(opcional)</span></label>
+              <div class="input-affix">
+                <span>R$</span>
+                <input type="text" inputmode="decimal" id="outros-descontos" name="outros-descontos" placeholder="0,00">
+              </div>
+            </div>
+          </div>
+
+          <button class="calc-btn" type="submit">Calcular salário líquido</button>
+        </form>
+
+        <div class="result" id="resultado" hidden>
+          <span class="stamp" id="stamp">Cálculo pronto</span>
+
+          <div class="result-row">
+            <span class="label">Salário bruto</span>
+            <span class="leader"></span>
+            <span class="value" id="v-bruto">—</span>
+          </div>
+          <div class="result-row deduction">
+            <span class="label">INSS</span>
+            <span class="leader"></span>
+            <span class="value" id="v-inss">—</span>
+          </div>
+          <div class="result-row deduction">
+            <span class="label">IRRF</span>
+            <span class="leader"></span>
+            <span class="value" id="v-irrf">—</span>
+          </div>
+          <div class="result-row deduction">
+            <span class="label">Outros descontos</span>
+            <span class="leader"></span>
+            <span class="value" id="v-outros">—</span>
+          </div>
+          <div class="result-row total">
+            <span class="label">Salário líquido</span>
+            <span class="leader"></span>
+            <span class="value" id="v-liquido"><span class="prefix">R$</span>—</span>
+          </div>
+        </div>
+
+        <p class="disclaimer">
+          Cálculo simplificado, com faixas de referência de INSS e IRRF, para fins de estimativa.
+          Não substitui o cálculo oficial da folha de pagamento feito pela contabilidade da sua empresa.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ Conteúdo explicativo (cobre a intenção informacional) ============ -->
+    <section class="content">
+      <h2 class="section-title"><span class="n">01</span>O que é salário líquido</h2>
+      <p class="section-lede">O essencial para entender a conta antes de olhar os números.</p>
+      <p>
+        Salário líquido é o valor que realmente cai na conta no fim do mês — depois de descontados
+        o INSS e o Imposto de Renda Retido na Fonte (IRRF), além de eventuais descontos específicos
+        do contrato, como vale-transporte ou pensão alimentícia. É diferente do salário bruto, que
+        é o valor combinado antes de qualquer desconto.
+      </p>
+      <p>
+        Quem organiza o financeiro de um negócio pequeno — seja o próprio dono ou a pessoa
+        responsável pelas contas — costuma precisar dessa conta rapidamente antes de repassar os
+        números para a contabilidade fechar a folha. É exatamente esse uso rápido, sem planilha,
+        que esta calculadora resolve.
+      </p>
+
+      <h3>Como o INSS é descontado</h3>
+      <p>
+        O INSS é calculado por faixas progressivas: cada parte do salário é tributada com uma
+        alíquota diferente, que aumenta conforme o valor sobe, até um teto de contribuição.
+      </p>
+      <div class="table-wrap">
+        <table class="brackets">
+          <caption>Faixas de referência usadas nesta simulação</caption>
+          <thead>
+            <tr><th>Faixa salarial</th><th>Alíquota</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Até R$ 1.518,00</td><td>7,5%</td></tr>
+            <tr><td>De R$ 1.518,01 até R$ 2.793,88</td><td>9%</td></tr>
+            <tr><td>De R$ 2.793,89 até R$ 4.190,83</td><td>12%</td></tr>
+            <tr><td>De R$ 4.190,84 até R$ 8.157,41</td><td>14%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Como o IRRF é descontado</h3>
+      <p>
+        O Imposto de Renda também é progressivo, e cada dependente declarado reduz a base de
+        cálculo, o que pode baixar a alíquota efetiva aplicada.
+      </p>
+      <div class="table-wrap">
+        <table class="brackets">
+          <caption>Faixas de referência usadas nesta simulação</caption>
+          <thead>
+            <tr><th>Base de cálculo</th><th>Alíquota</th><th>Parcela a deduzir</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Até R$ 2.259,20</td><td>Isento</td><td>—</td></tr>
+            <tr><td>Até R$ 2.826,65</td><td>7,5%</td><td>R$ 169,44</td></tr>
+            <tr><td>Até R$ 3.751,05</td><td>15%</td><td>R$ 381,44</td></tr>
+            <tr><td>Até R$ 4.664,68</td><td>22,5%</td><td>R$ 662,77</td></tr>
+            <tr><td>Acima de R$ 4.664,68</td><td>27,5%</td><td>R$ 896,00</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============ HowTo visual (espelha o schema HowTo) ============ -->
+    <section class="content">
+      <h2 class="section-title"><span class="n">02</span>Como usar a calculadora</h2>
+      <p class="section-lede">Quatro passos, sem planilha e sem cadastro.</p>
+      <ol class="steps">
+        <li>
+          <div>
+            <h4>Informe o salário bruto</h4>
+            <p>O valor combinado em carteira, antes de qualquer desconto.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h4>Informe o número de dependentes</h4>
+            <p>Cada dependente reduz a base de cálculo do Imposto de Renda.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h4>Adicione outros descontos (opcional)</h4>
+            <p>Vale-transporte, pensão alimentícia ou outro valor fixo do seu contrato.</p>
+          </div>
+        </li>
+        <li>
+          <div>
+            <h4>Veja o resultado detalhado</h4>
+            <p>INSS, IRRF e salário líquido aparecem linha por linha, como num contracheque.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ============ FAQ (espelha o schema FAQPage) ============ -->
+    <section class="content">
+      <h2 class="section-title"><span class="n">03</span>Perguntas frequentes</h2>
+
+      <details class="faq-item">
+        <summary>O que é salário líquido?</summary>
+        <div class="a">
+          É o valor que efetivamente cai na conta do trabalhador depois de descontados INSS,
+          IRRF e outros descontos do contrato, como vale-transporte ou pensão alimentícia.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Qual a diferença entre salário bruto e salário líquido?</summary>
+        <div class="a">
+          O bruto é o valor combinado antes dos descontos obrigatórios. O líquido é o que resta
+          depois de descontar INSS e IRRF — a diferença entre os dois varia bastante conforme a
+          faixa salarial e o número de dependentes.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Como o INSS é calculado sobre o salário?</summary>
+        <div class="a">
+          De forma progressiva: cada faixa do salário é tributada com uma alíquota diferente,
+          que aumenta conforme o valor sobe, até um teto de contribuição.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Ter dependentes reduz o Imposto de Renda?</summary>
+        <div class="a">
+          Sim. Cada dependente declarado reduz a base de cálculo do IRRF, o que pode diminuir a
+          alíquota efetiva ou até isentar o trabalhador, dependendo da faixa salarial.
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Essa calculadora substitui o cálculo feito pela contabilidade da empresa?</summary>
+        <div class="a">
+          Não. Ela usa uma tabela simplificada para dar uma estimativa rápida. Para a folha de
+          pagamento oficial e situações específicas de cada contrato, o cálculo definitivo deve
+          ser feito pela contabilidade responsável pela empresa.
+        </div>
+      </details>
+    </section>
+
+    <!-- ============ Hub: calculadoras relacionadas ============ -->
+    <section class="content" id="related">
+      <h2 class="section-title"><span class="n">04</span>Outras calculadoras trabalhistas</h2>
+      <p class="section-lede">Fazem parte do mesmo hub — chegam nas próximas ondas do roadmap.</p>
+      <div class="related-grid">
+        <a class="related-card disabled" href="#" aria-disabled="true">
+          <span class="rc-title">Calculadora de Férias</span>
+          <span class="rc-tag">em breve</span>
+        </a>
+        <a class="related-card disabled" href="#" aria-disabled="true">
+          <span class="rc-title">Calculadora de 13º Salário</span>
+          <span class="rc-tag">em breve</span>
+        </a>
+        <a class="related-card disabled" href="#" aria-disabled="true">
+          <span class="rc-title">Calculadora de Rescisão</span>
+          <span class="rc-tag">em breve</span>
+        </a>
+        <a class="related-card disabled" href="#" aria-disabled="true">
+          <span class="rc-title">Calculadora de FGTS</span>
+          <span class="rc-tag">em breve</span>
+        </a>
+        <a class="related-card disabled" href="#" aria-disabled="true">
+          <span class="rc-title">Calculadora de Horas Extras</span>
+          <span class="rc-tag">em breve</span>
+        </a>
+        <a class="related-card disabled" href="#" aria-disabled="true">
+          <span class="rc-title">Calculadora de INSS</span>
+          <span class="rc-tag">em breve</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ CTA cruzado ============ -->
+    <section class="cta-band">
+      <p class="eyebrow">Tem gente na equipe?</p>
+      <h3>Simplifique a gestão financeira do seu negócio</h3>
+      <p>
+        Se você paga funcionários todo mês, a Conta PJ da InfinitePay é gratuita e reúne Pix,
+        boletos e cartões num só lugar — sem mensalidade.
+      </p>
+      <a class="btn" href="https://infinitepay.io/conta/pessoa-juridica">Conhecer a Conta PJ</a>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>
+      Calculadora de Salário Líquido — InfinitePay. Ferramenta gratuita com cálculo simplificado,
+      sem substituir orientação contábil ou jurídica. Faixas de INSS e IRRF usadas como referência
+      para fins de estimativa. Consulte sempre a tabela oficial vigente e a contabilidade da sua
+      empresa para valores definitivos. <a href="https://infinitepay.io">infinitepay.io</a>
+    </p>
+  </div>
+</footer>
+
+<script src="assets/js/calculator.js"></script>
+</body>
+</html>

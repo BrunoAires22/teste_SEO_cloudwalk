@@ -1,0 +1,546 @@
+/* ==========================================================================
+   Calculadora de Salário Líquido — InfinitePay
+   Sistema de tokens replicado do design system real do site (ver README.md
+   > "Design system aplicado" para o mapeamento token a token).
+   ========================================================================== */
+
+:root {
+  /* Marca */
+  --brand-dark: #13151e;
+  --brand-dark-grey: #3d4256;
+  --brand-grey: #6e7191;
+  --brand-light-grey: #f4f5f8;
+  --brand-white: #ffffff;
+
+  /* Roxo — dados, destaques, prefixo "R$" */
+  --purple-100: #ba99ff;
+  --purple-400: #864dff;
+  --purple-600: #6e08f2;
+  --purple-700: #4f06ad;
+
+  /* Lima — ação / CTA */
+  --lime: #baff1a;
+  --dark-lime: #92d900;
+  --green-200: #e8ffb2;
+
+  /* Vermelho — desconto / negativo */
+  --red-100: #ffccd2;
+  --red-800: #990012;
+
+  /* Neutros */
+  --neutral-0: #ffffff;
+  --neutral-75: #f7f7f7;
+  --neutral-100: #f5f5f5;
+  --neutral-150: #f1f1f1;
+  --neutral-250: #e8e8e8;
+  --neutral-300: #e0e0e0;
+  --neutral-800: #323232;
+  --page-bg: #f0f0f0;
+  --text-body: #3d4256;
+  --text-label: #616161;
+
+  --font-display: "Sora", Arial, sans-serif;
+  --font-body: "DM Sans", Arial, sans-serif;
+
+  --maxw: 48rem; /* container-small do design system: 768px */
+  --radius-sm: 8px;    /* border-small */
+  --radius-md: 12px;   /* border-regular */
+  --radius-lg: 16px;   /* border-medium — usado no card da calculadora */
+  --radius-pill: 500px;
+
+  --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.06);
+  --shadow-float: 0px -18px 50px 10px rgba(0, 0, 0, 0.09);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--purple-600); text-decoration: none; }
+a:hover { color: var(--purple-700); }
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--purple-600);
+  outline-offset: 2px;
+}
+
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* -------------------------------------------------------------------------
+   Header
+   ------------------------------------------------------------------------- */
+.site-header {
+  background: var(--brand-white);
+}
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--brand-dark-grey);
+  font-size: 17px;
+}
+.brand-logo {
+  display: block;
+  height: 22px;
+  width: auto;
+}
+.brand .dot { color: var(--purple-600); }
+.brand-sub {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 12.5px;
+  color: var(--text-label);
+}
+.crumbs {
+  font-size: 13px;
+  color: var(--text-label);
+  font-family: var(--font-body);
+}
+.crumbs a { color: var(--text-label); }
+.crumbs a:hover { color: var(--purple-600); }
+
+/* -------------------------------------------------------------------------
+   Hero
+   ------------------------------------------------------------------------- */
+.hero { padding: 3rem 0 .5rem; }
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 13px;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--purple-600);
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 5vw, 37.8px);
+  line-height: 1.3;
+  letter-spacing: 0;
+  margin: 0 0 12px;
+  color: var(--brand-dark-grey);
+  font-weight: 500;
+}
+.hero-sub {
+  font-size: 16px;
+  color: var(--text-label);
+  max-width: 56ch;
+  margin: 0 0 28px;
+  line-height: 1.5;
+}
+
+/* -------------------------------------------------------------------------
+   Card da calculadora (padrão replicado do card de CDB da InfinitePay)
+   ------------------------------------------------------------------------- */
+.payslip {
+  background: var(--neutral-0);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  margin-bottom: 44px;
+}
+.payslip-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--neutral-150);
+}
+.payslip-head h2 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--brand-dark-grey);
+  margin: 0;
+  font-weight: 600;
+}
+.payslip-head .ref {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--text-label);
+}
+
+.payslip-body { padding: 24px; }
+
+.field-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 18px;
+  margin-bottom: 6px;
+}
+.field { display: flex; flex-direction: column; gap: 8px; flex: 1 1 calc(50% - 9px); min-width: 160px; }
+.field.span-2 { flex-basis: 100%; }
+.field label {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-label);
+}
+.field .hint { font-size: 12px; color: var(--text-label); font-weight: 400; }
+
+.input-affix { position: relative; }
+.input-affix span {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--text-label);
+  pointer-events: none;
+}
+.input-affix input {
+  border: none;
+  background: var(--neutral-100);
+  border-radius: var(--radius-sm);
+  padding: 16px 16px 16px 38px;
+  font-size: 16px;
+  font-family: var(--font-body);
+  color: var(--neutral-800);
+  width: 100%;
+}
+select.plain {
+  border: none;
+  background: var(--neutral-100);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  font-size: 16px;
+  font-family: var(--font-body);
+  color: var(--neutral-800);
+  width: 100%;
+}
+.input-affix input:focus, select.plain:focus { outline: none; box-shadow: 0 0 0 2px var(--purple-600) inset; }
+
+.calc-btn {
+  margin-top: 20px;
+  width: 100%;
+  border: none;
+  background: var(--lime);
+  color: #000000;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 16px;
+  padding: 14px 20px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.calc-btn:hover { background: var(--dark-lime); }
+.calc-btn:active { background: var(--dark-lime); }
+
+/* Resultado */
+.result {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--neutral-150);
+  position: relative;
+}
+.result[hidden] { display: none; }
+.result-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px 0;
+  font-size: 14.5px;
+}
+.result-row .label { color: var(--text-label); }
+.result-row .leader { display: none; } /* estilo dot-leader não faz parte do design system InfinitePay */
+.result-row .value {
+  font-family: var(--font-body);
+  font-variant-numeric: tabular-nums;
+  color: var(--neutral-800);
+  font-weight: 500;
+  white-space: nowrap;
+}
+.result-row.deduction .value { color: var(--red-800); }
+.result-row.total {
+  margin-top: 6px;
+  padding-top: 18px;
+  border-top: 1px solid var(--neutral-150);
+}
+.result-row.total .label {
+  font-weight: 600;
+  color: var(--brand-dark-grey);
+  font-size: 15.5px;
+}
+.result-row.total .value {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 28px;
+  color: var(--neutral-800);
+}
+.result-row.total .value .prefix {
+  color: var(--purple-400);
+  margin-right: 4px;
+}
+
+.stamp {
+  display: inline-block;
+  background: var(--lime);
+  color: #000000;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 13px;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 14px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.stamp.show { opacity: 1; transform: translateY(0); }
+
+.disclaimer {
+  font-size: 12.5px;
+  color: var(--text-label);
+  margin-top: 18px;
+  line-height: 1.5;
+}
+
+/* -------------------------------------------------------------------------
+   Conteúdo / seções
+   ------------------------------------------------------------------------- */
+section.content { padding: .5rem 0 2.5rem; }
+h2.section-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0;
+  margin: 0 0 6px;
+  font-weight: 500;
+  color: var(--brand-dark-grey);
+}
+.section-title .n {
+  font-family: var(--font-body);
+  color: var(--purple-600);
+  font-weight: 700;
+  margin-right: 8px;
+  font-size: 15px;
+}
+.section-lede {
+  color: var(--text-label);
+  margin: 0 0 20px;
+  max-width: 62ch;
+  font-size: 15px;
+}
+.content p { color: var(--text-body); }
+.content h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--brand-dark-grey);
+  margin: 22px 0 8px;
+}
+
+.table-wrap { overflow-x: auto; margin: 16px 0 8px; border-radius: var(--radius-md); }
+table.brackets {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  font-family: var(--font-body);
+  background: var(--neutral-0);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+table.brackets caption {
+  text-align: left;
+  font-size: 12.5px;
+  color: var(--text-label);
+  margin-bottom: 6px;
+  caption-side: top;
+}
+table.brackets th, table.brackets td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--neutral-150);
+}
+table.brackets tr:last-child td { border-bottom: none; }
+table.brackets th {
+  background: var(--brand-light-grey);
+  font-weight: 600;
+  color: var(--text-label);
+  font-size: 12.5px;
+}
+
+/* HowTo — passos */
+.steps {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  counter-reset: step;
+  display: grid;
+  gap: 16px;
+}
+.steps li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+.steps li::before {
+  content: counter(step);
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--purple-600);
+  background: var(--purple-100);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+.steps h4 { margin: 6px 0 2px; font-size: 15px; font-weight: 600; color: var(--brand-dark-grey); }
+.steps p { margin: 0; font-size: 14.5px; color: var(--text-body); }
+
+/* FAQ */
+.faq-item {
+  background: var(--neutral-0);
+  border-radius: var(--radius-md);
+  margin-bottom: 10px;
+  padding: 0 20px;
+}
+.faq-item summary {
+  cursor: pointer;
+  padding: 16px 0;
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--brand-dark-grey);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  color: var(--purple-600);
+  font-size: 20px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.faq-item[open] summary::after { content: "\2013"; }
+.faq-item .a { padding: 0 0 18px; color: var(--text-label); font-size: 14.5px; }
+
+/* Calculadoras relacionadas */
+.related-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+.related-card {
+  flex: 1 1 calc(50% - 6px);
+  min-width: 220px;
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  background: var(--neutral-0);
+  box-shadow: var(--shadow-card);
+  box-sizing: border-box;
+  transition: box-shadow 0.15s ease;
+}
+.related-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,0.09); }
+.related-card .rc-title {
+  font-weight: 600;
+  color: var(--brand-dark-grey);
+  font-size: 14.5px;
+  display: block;
+  margin-bottom: 8px;
+}
+.related-card .rc-tag {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--text-label);
+  background: var(--neutral-100);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+}
+.related-card.disabled {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* CTA cruzado */
+.cta-band {
+  background: var(--brand-dark);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  color: #fff;
+  margin: 8px 0 40px;
+}
+.cta-band .eyebrow { color: var(--purple-100); }
+.cta-band h3 {
+  font-family: var(--font-display);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+.cta-band p {
+  color: #c3c5d1;
+  margin: 0 0 18px;
+  max-width: 52ch;
+  font-size: 14.5px;
+}
+.cta-band a.btn {
+  display: inline-block;
+  background: var(--lime);
+  color: #000;
+  font-weight: 500;
+  font-size: 15px;
+  text-decoration: none;
+  padding: 12px 22px;
+  border-radius: var(--radius-pill);
+}
+.cta-band a.btn:hover { background: var(--dark-lime); }
+
+/* -------------------------------------------------------------------------
+   Footer
+   ------------------------------------------------------------------------- */
+.site-footer {
+  background: var(--brand-light-grey);
+  padding: 32px 0 48px;
+}
+.site-footer p {
+  font-size: 12.5px;
+  color: var(--text-label);
+  max-width: 70ch;
+  line-height: 1.6;
+}
+.site-footer a { color: var(--purple-600); }
+
+@media (max-width: 560px) {
+  .field-grid .field { flex-basis: 100%; }
+  .related-grid .related-card { flex-basis: 100%; }
+  .payslip-body { padding: 20px; }
+  .cta-band { padding: 24px; }
+  .wrap { padding: 0 1.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; }
+}
