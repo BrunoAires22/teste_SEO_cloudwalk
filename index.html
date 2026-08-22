@@ -165,95 +165,103 @@
 </header>
 
 <main>
-  <div class="wrap">
 
-    <section class="hero">
-      <p class="eyebrow">Calculadora gratuita</p>
-      <h1>Calculadora de Salário Líquido</h1>
-      <p class="hero-sub">
-        Informe o salário bruto e veja na hora, linha por linha, quanto vai de INSS,
-        quanto vai de Imposto de Renda e quanto sobra de líquido — sem cadastro, sem planilha.
-      </p>
-    </section>
+  <!-- ============ Hero com imagem de fundo — calculadora na primeira dobra ============ -->
+  <section class="hero-band">
+    <div class="wrap hero-band-inner">
 
-    <!-- ============ A CALCULADORA (elemento de assinatura: holerite) ============ -->
-    <section class="payslip" aria-labelledby="calc-heading">
-      <div class="payslip-head">
-        <h2 id="calc-heading">Simulação de contracheque</h2>
-        <span class="ref">ref. cálculo simplificado</span>
-      </div>
+      <section class="hero">
+        <p class="eyebrow">Calculadora gratuita</p>
+        <h1>Calculadora de Salário Líquido</h1>
+        <p class="hero-sub">
+          Informe o salário bruto e veja na hora, linha por linha, quanto vai de INSS,
+          quanto vai de Imposto de Renda e quanto sobra de líquido — sem cadastro, sem planilha.
+        </p>
+      </section>
 
-      <div class="payslip-body">
-        <form id="calc-form" novalidate>
-          <div class="field-grid">
-            <div class="field span-2">
-              <label for="salario-bruto">Salário bruto mensal</label>
-              <div class="input-affix">
-                <span>R$</span>
-                <input type="text" inputmode="decimal" id="salario-bruto" name="salario-bruto" placeholder="3.500,00" required>
-              </div>
-            </div>
-
-            <div class="field">
-              <label for="dependentes">Dependentes (IR)</label>
-              <select class="plain" id="dependentes" name="dependentes">
-                <option value="0" selected>0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5 ou mais</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="outros-descontos">Outros descontos <span class="hint">(opcional)</span></label>
-              <div class="input-affix">
-                <span>R$</span>
-                <input type="text" inputmode="decimal" id="outros-descontos" name="outros-descontos" placeholder="0,00">
-              </div>
-            </div>
-          </div>
-
-          <button class="calc-btn" type="submit">Calcular salário líquido</button>
-        </form>
-
-        <div class="result" id="resultado" hidden>
-          <span class="stamp" id="stamp">Cálculo pronto</span>
-
-          <div class="result-row">
-            <span class="label">Salário bruto</span>
-            <span class="leader"></span>
-            <span class="value" id="v-bruto">—</span>
-          </div>
-          <div class="result-row deduction">
-            <span class="label">INSS</span>
-            <span class="leader"></span>
-            <span class="value" id="v-inss">—</span>
-          </div>
-          <div class="result-row deduction">
-            <span class="label">IRRF</span>
-            <span class="leader"></span>
-            <span class="value" id="v-irrf">—</span>
-          </div>
-          <div class="result-row deduction">
-            <span class="label">Outros descontos</span>
-            <span class="leader"></span>
-            <span class="value" id="v-outros">—</span>
-          </div>
-          <div class="result-row total">
-            <span class="label">Salário líquido</span>
-            <span class="leader"></span>
-            <span class="value" id="v-liquido"><span class="prefix">R$</span>—</span>
-          </div>
+      <!-- ============ A CALCULADORA (elemento de assinatura: holerite) ============ -->
+      <section class="payslip" aria-labelledby="calc-heading">
+        <div class="payslip-head">
+          <h2 id="calc-heading">Simulação de contracheque</h2>
+          <span class="ref">ref. cálculo simplificado</span>
         </div>
 
-        <p class="disclaimer">
-          Cálculo simplificado, com faixas de referência de INSS e IRRF, para fins de estimativa.
-          Não substitui o cálculo oficial da folha de pagamento feito pela contabilidade da sua empresa.
-        </p>
-      </div>
-    </section>
+        <div class="payslip-body">
+          <form id="calc-form" novalidate>
+            <div class="field-grid">
+              <div class="field span-2">
+                <label for="salario-bruto">Salário bruto mensal</label>
+                <div class="input-affix">
+                  <span>R$</span>
+                  <input type="text" inputmode="decimal" id="salario-bruto" name="salario-bruto" placeholder="3.500,00" required>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="dependentes">Dependentes (IR)</label>
+                <select class="plain" id="dependentes" name="dependentes">
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5 ou mais</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="outros-descontos">Outros descontos <span class="hint">(opcional)</span></label>
+                <div class="input-affix">
+                  <span>R$</span>
+                  <input type="text" inputmode="decimal" id="outros-descontos" name="outros-descontos" placeholder="0,00">
+                </div>
+              </div>
+            </div>
+
+            <button class="calc-btn" type="submit">Calcular salário líquido</button>
+          </form>
+
+          <div class="result" id="resultado" hidden>
+            <span class="stamp" id="stamp">Cálculo pronto</span>
+
+            <div class="result-row">
+              <span class="label">Salário bruto</span>
+              <span class="leader"></span>
+              <span class="value" id="v-bruto">—</span>
+            </div>
+            <div class="result-row deduction">
+              <span class="label">INSS</span>
+              <span class="leader"></span>
+              <span class="value" id="v-inss">—</span>
+            </div>
+            <div class="result-row deduction">
+              <span class="label">IRRF</span>
+              <span class="leader"></span>
+              <span class="value" id="v-irrf">—</span>
+            </div>
+            <div class="result-row deduction">
+              <span class="label">Outros descontos</span>
+              <span class="leader"></span>
+              <span class="value" id="v-outros">—</span>
+            </div>
+            <div class="result-row total">
+              <span class="label">Salário líquido</span>
+              <span class="leader"></span>
+              <span class="value" id="v-liquido"><span class="prefix">R$</span>—</span>
+            </div>
+          </div>
+
+          <p class="disclaimer">
+            Cálculo simplificado, com faixas de referência de INSS e IRRF, para fins de estimativa.
+            Não substitui o cálculo oficial da folha de pagamento feito pela contabilidade da sua empresa.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  </section>
+
+  <div class="wrap">
 
     <!-- ============ Conteúdo explicativo (cobre a intenção informacional) ============ -->
     <section class="content">
