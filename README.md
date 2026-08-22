@@ -3,7 +3,7 @@
 Protótipo da página principal da ferramenta gratuita recomendada na análise de
 oportunidade de aquisição orgânica da InfinitePay (documento em anexo à
 entrega do teste). Este repositório contém **apenas a página principal do
-hub** `/calculadoras/`, conforme escopo do teste — as demais calculadoras do
+hub** `/calculadoras/`, conforme escopo do teste, as demais calculadoras do
 cluster (férias, 13º, rescisão, FGTS, horas extras, INSS) aparecem como
 "em breve" na própria página, representando a arquitetura planejada.
 
@@ -13,7 +13,7 @@ GitHub Pages (Settings → Pages → Deploy from branch → `main` → `/root`).
 ## Como este protótipo se conecta à análise
 
 Todas as decisões de estrutura, título, URL e dados estruturados desta página
-decorrem diretamente dos achados do dataset (Ahrefs, mercado Brasil) — o
+decorrem diretamente dos achados do dataset (Ahrefs, mercado Brasil), o
 racional completo está no documento de análise. Resumo das decisões
 aplicadas aqui:
 
@@ -25,7 +25,7 @@ aplicadas aqui:
 | Schema `FAQPage` + `HowTo` + `WebApplication` + `BreadcrumbList` | `<script type="application/ld+json">` no `<head>` | Nenhum concorrente do cluster ocupa `serp_features` hoje — terreno aberto para SEO e AEO |
 | Cálculo client-side, sem framework | `assets/js/calculator.js` | Keywords do cluster são classificadas como transacionais ("faça agora") — latência mata a intenção de uso |
 | Hub de calculadoras relacionadas | Seção `#related` | Arquitetura hub-and-spoke prevista no roadmap de 90 dias |
-| CTA cruzado para Conta PJ | Seção `.cta-band` | Ferramenta como topo de funil, não conversão direta — ponderação registrada na análise sobre quem efetivamente busca essas keywords |
+| CTA cruzado para Conta PJ | Seção `.cta-band` | Ferramenta como topo de funil, não conversão direta, ponderação registrada na análise sobre quem efetivamente busca essas keywords |
 
 ## Design system aplicado
 
@@ -72,14 +72,14 @@ assets/js/calculator.js     → cálculo simplificado de INSS/IRRF (client-side)
 
 ## Sobre o cálculo
 
-O cálculo usa faixas de referência simplificadas de INSS e IRRF — conforme o
+O cálculo usa faixas de referência simplificadas de INSS e IRRF, conforme o
 escopo do teste, a ferramenta não precisa refletir a legislação vigente com
 exatidão, só demonstrar a estrutura da página. Isso está declarado
 explicitamente na própria página (aviso abaixo do resultado e no rodapé).
 
 ## Decisões técnicas relevantes
 
-- **Sem framework, sem dependência externa.** HTML/CSS/JS puro — menor
+- **Sem framework, sem dependência externa.** HTML/CSS/JS puro, menor
   payload possível, sem hidratação, adequado a uma página cuja prioridade é
   Core Web Vitals.
 - **Sem fonte externa.** Usa a stack de fontes do sistema para eliminar uma
