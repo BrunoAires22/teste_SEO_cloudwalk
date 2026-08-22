@@ -125,8 +125,42 @@ summary:focus-visible {
 .crumbs a:hover { color: var(--purple-600); }
 
 /* -------------------------------------------------------------------------
-   Hero
+   Hero band — imagem de fundo (mockups de produto), título por cima e
+   calculadora ainda na primeira dobra. A faixa é full-bleed; o conteúdo
+   (texto + card) continua dentro do container estreito (.wrap), igual ao
+   resto da página.
    ------------------------------------------------------------------------- */
+.hero-band {
+  position: relative;
+  background-color: var(--page-bg);
+  overflow: hidden;
+}
+.hero-band::before {
+  /* mockups de produto (Tap + InfiniteTap), encostados na borda direita da
+     faixa — igual ao padrão do hero real da InfinitePay (texto à esquerda,
+     foto de produto à direita). Fora do container de texto (.wrap tem
+     48rem/768px), então não disputa contraste com o título nem com o card. */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: url("../img/hero-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: auto 108%;
+  opacity: 0.9;
+}
+.hero-band-inner {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 1180px) {
+  /* a partir daqui a margem à direita do container fica curta demais pro
+     mockup não encostar no texto — reduz o tamanho e deixa mais discreto. */
+  .hero-band::before { background-size: auto 72%; opacity: 0.55; }
+}
+
 .hero { padding: 3rem 0 .5rem; }
 .eyebrow {
   font-family: var(--font-body);
@@ -152,6 +186,12 @@ h1 {
   max-width: 56ch;
   margin: 0 0 28px;
   line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  /* sem margem sobrando ao lado do container pra imagem respirar — some
+     por completo e a faixa fica só com a cor de fundo padrão da página. */
+  .hero-band::before { display: none; }
 }
 
 /* -------------------------------------------------------------------------
