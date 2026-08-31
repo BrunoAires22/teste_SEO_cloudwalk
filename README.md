@@ -7,8 +7,7 @@ hub** `/calculadoras/`, conforme escopo do teste, as demais calculadoras do
 cluster (férias, 13º, rescisão, FGTS, horas extras, INSS) aparecem como
 "em breve" na própria página, representando a arquitetura planejada.
 
-**Preview:** abra `index.html` diretamente no navegador, ou publique via
-GitHub Pages (Settings → Pages → Deploy from branch → `main` → `/root`).
+**Preview:** abra `index.html` diretamente no navegador.
 
 ## Como este protótipo se conecta à análise
 
@@ -92,17 +91,3 @@ explicitamente na própria página (aviso abaixo do resultado e no rodapé).
   desenvolvidas nesta entrega — o teste pede explicitamente só a página
   principal. Elas aparecem como estado "em breve" para comunicar a
   arquitetura sem gastar tempo fora do escopo.
-
-## Publicar no GitHub
-
-```bash
-git init
-git add .
-git commit -m "Página principal: Calculadora de Salário Líquido"
-git branch -M main
-git remote add origin <URL_DO_SEU_REPOSITORIO>
-git push -u origin main
-```
-
-Para publicar via GitHub Pages: Settings → Pages → Source → branch `main`,
-pasta `/ (root)`.
